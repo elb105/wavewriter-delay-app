@@ -76,18 +76,28 @@
     </details>
   </section>
 
+  <section class="card" aria-labelledby="h-ranges">
+    <h2 id="h-ranges">Retardos configurables</h2>
+    <p class="hint lead">El retardo no puede tomar cualquier valor: solo los de estos rangos, en pasos de 10 µs. Entre un rango y otro hay huecos que el equipo no puede producir.</p>
+    <div id="rangeBar" class="rangebar"></div>
+    <div class="tablewrap"><table class="ranges" id="ranges"></table></div>
+  </section>
+
   <section class="card" aria-labelledby="h-out">
     <div class="row-between">
       <h2 id="h-out">Programación de las áreas</h2>
       <div id="summary" class="summary"></div>
     </div>
     <div id="errors" class="msgs"></div>
-    <div id="areas" class="areas"></div>
-    <figure class="timeline">
-      <div id="timeline"></div>
-      <figcaption>Un ciclo de estimulación. Cada área empieza cuando termina el pulso de la anterior más el tiempo fijo por salto.</figcaption>
-    </figure>
-    <div id="msgs" class="msgs"></div>
+    <div id="notConfig" class="notconfig" hidden role="alert"></div>
+    <div id="programming">
+      <div id="areas" class="areas"></div>
+      <figure class="timeline">
+        <div id="timeline"></div>
+        <figcaption>Un ciclo de estimulación. Cada área empieza cuando termina el pulso de la anterior más el tiempo fijo por salto.</figcaption>
+      </figure>
+      <div id="msgs" class="msgs"></div>
+    </div>
   </section>
 
   <section class="card" aria-labelledby="h-log">
@@ -116,7 +126,6 @@
     <p>El estimulador emite las áreas una detrás de otra en orden A → B → C → D. Medido a 20 Hz:</p>
     <p class="formula">inicio del área siguiente = inicio de la anterior + ancho de la anterior + 3010 µs</p>
     <p>El retardo entre la primera y la última área es la suma de los anchos de todas las áreas que estimulan antes que la última, más 3010 µs por cada salto. Las áreas intermedias se encienden a 0,1 mA (el mínimo del equipo) solo para añadir retardo; su ancho es lo que se ajusta. Las áreas posteriores a la final quedan apagadas.</p>
-    <table class="ranges" id="ranges"></table>
     <p>Límites del equipo: ancho 20–1000 µs (pasos de 10 µs), amplitud 0,1–25,5 mA (pasos de 0,1 mA), frecuencia 2–1200 Hz, 32 contactos repartidos en los puertos A (1–8), B (9–16), C (17–24) y D (25–32). Los puertos del generador no son lo mismo que las áreas de estimulación: cualquier contacto puede asignarse a cualquier área.</p>
     <p>Fuentes: informe de retardos REWIRE (Spike2, 16-11-2026), <em>Characterization of Boston Scientific Alpha Writer 2</em>, datasheet WaveWriter Alpha (92469342-02) e informe de Boston Scientific <em>SCS Signal Delay Test</em>.</p>
   </section>

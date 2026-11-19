@@ -30,8 +30,10 @@ Medido con el Power 1401 / Spike2 a 20 Hz (informe REWIRE del 16-11-2026):
 
 El fabricante indica 3000 µs; el valor se puede cambiar en «Ajustes avanzados».
 Con A = 250 µs, los retardos posibles son 3260 µs (A→B), 6290–7270 µs (A→C) y
-9320–11 280 µs (A→D), en pasos de 10 µs. Si el retardo pedido cae fuera, la app
-muestra la configuración más cercana y qué ancho de A lo haría alcanzable.
+9320–11 280 µs (A→D), en pasos de 10 µs. La app muestra estos rangos en el
+apartado «Retardos configurables». Si el retardo pedido no es configurable, no
+muestra ninguna programación: lo indica en rojo, propone los retardos
+configurables más cercanos y el ancho de A que lo haría posible.
 
 La regla se cumple en todos los tests a 20 Hz con error < 1 µs. A 150 Hz no se
 cumplió (Test 5), porque el ciclo calculado no cabía en el periodo: la app lo

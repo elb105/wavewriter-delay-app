@@ -17,14 +17,67 @@
   $('freq').value = '20';
 
   // ---------- Tabla de rangos ----------
-  function renderRanges(pwA, hop) {
-    var rows = [1, 2, 3].map(function (h) {
-      var r = C.range(pwA, h, hop);
-      return '<tr><td>A → ' + SPEC.AREAS[h] + '</td><td>' + (r.min === r.max ? fmt(r.min) : fmt(r.min) + ' – ' + fmt(r.max)) + ' µs</td><td>' +
-        (h === 1 ? 'B a cualquier ancho no influye' : h === 2 ? 'B ajustable 20–1000 µs' : 'B + C ajustables 40–2000 µs') + '</td></tr>';
+  var rangeTxt = function (r) { return r.min === r.max ? fmt(r.min) + ' µs' : fmt(r.min) + ' – ' + fmt(r.max) + ' µs'; };
+  function renderRanges(pwA, hop, delay, ok) {
+    var validA = Number.isFinite(pwA) && pwA >= SPEC.PW_MIN && pwA <= SPEC.PW_MAX;
+    var glob = C.globalRanges(hop);
+    var rows = [1, 2, 3].map(function (h, i) {
+      var r = validA ? C.range(pwA, h, hop) : null;
+      var hit = Number.isFinite(delay) && r && delay >= r.min && delay <= r.max;
+      return '<tr' + (hit ? ' class="hit"' : '') + '><td><b>A → ' + SPEC.AREAS[h] + '</b></td><td>' + (r ? rangeTxt(r) : '—') + '</td><td>' + rangeTxt(glob[i]) + '</td><td>' +
+        (h === 1 ? 'ninguna' : h === 2 ? 'B: 20–1000 µs' : 'B + C: 40–2000 µs') + '</td></tr>';
     });
-    $('ranges').innerHTML = '<thead><tr><th>Última área</th><th>Retardos posibles con A = ' + fmt(pwA) + ' µs</th><th>Áreas intermedias</th></tr></thead><tbody>' + rows.join('') + '</tbody>';
+    $('ranges').innerHTML = '<thead><tr><th>Área final</th><th>Con A = ' + (validA ? fmt(pwA) + ' µs' : '—') +
+      '</th><th>Cambiando el ancho de A (20–1000 µs)</th><th>Ancho de las intermedias</th></tr></thead><tbody>' + rows.join('') + '</tbody>';
+
+    // Barra: rangos con cualquier A (claro) y con el A actual (intenso)
+    var maxT = 13000, W = 720, padL = 10, padR = 10, H = 74, y = 26;
+    var x = function (t) { return padL + (Math.min(t, maxT) / maxT) * (W - padL - padR); };
+    var s = '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Rangos de retardo configurables">';
+    s += '<line x1="' + x(0) + '" x2="' + x(maxT) + '" y1="' + (y + 8) + '" y2="' + (y + 8) + '" stroke="var(--line)" stroke-width="2"/>';
+    glob.forEach(function (g) { s += '<rect x="' + x(g.min) + '" y="' + y + '" width="' + (x(g.max) - x(g.min)) + '" height="16" rx="3" fill="var(--accent-soft)" stroke="var(--accent)" stroke-opacity="0.35"/>'; });
+    if (validA) [1, 2, 3].forEach(function (h) {
+      var r = C.range(pwA, h, hop);
+      s += '<rect x="' + x(r.min) + '" y="' + y + '" width="' + Math.max(3, x(r.max) - x(r.min)) + '" height="16" rx="3" fill="var(--accent)"/>';
+      s += '<text x="' + ((x(r.min) + x(r.max)) / 2) + '" y="' + (y - 6) + '" font-size="12" font-weight="700" fill="var(--text)" text-anchor="middle">A→' + SPEC.AREAS[h] + '</text>';
+    });
+    for (var t = 0; t <= 12000; t += 2000) s += '<text x="' + x(t) + '" y="' + (H - 6) + '" font-size="11" fill="var(--muted)" text-anchor="' + (t === 0 ? 'start' : 'middle') + '">' + (t / 1000) + ' ms</text>';
+    if (Number.isFinite(delay) && delay > 0) {
+      var col = ok ? 'var(--on)' : 'var(--err)';
+      s += '<line x1="' + x(delay) + '" x2="' + x(delay) + '" y1="' + (y - 4) + '" y2="' + (y + 22) + '" stroke="' + col + '" stroke-width="3"/>';
+      s += '<circle cx="' + x(delay) + '" cy="' + (y - 4) + '" r="5" fill="' + col + '"/>';
+    }
+    s += '</svg>';
+    $('rangeBar').innerHTML = s + '<p class="legend"><span class="sw solid"></span>posibles con el ancho de A actual <span class="sw soft"></span>posibles cambiando el ancho de A <span class="sw mark' + (ok ? ' ok' : '') + '"></span>retardo deseado</p>';
   }
+
+  function renderNotConfig(res) {
+    var near = [];
+    if (res.below) near.push(res.below);
+    if (res.above) near.push(res.above);
+    var h = '<div class="nc-head"><span class="nc-icon" aria-hidden="true">✕</span><div><b>Retardo no configurable: ' + fmt(res.delay) + ' µs</b>' +
+      '<p>' + (res.offGrid
+        ? 'El retardo solo se puede ajustar en pasos de 10 µs (resolución del ancho de pulso).'
+        : 'Con el área A a ' + fmt(res.pwFirst) + ' µs el WaveWriter Alpha no puede producir este retardo: cae ' +
+          (res.below && res.above ? 'en un hueco entre dos rangos' : res.above ? 'por debajo del mínimo' : 'por encima del máximo') + '.') +
+      ' No se muestra ninguna programación.</p></div></div>';
+    if (near.length) {
+      h += '<p class="nc-sub">Retardos configurables más cercanos con A = ' + fmt(res.pwFirst) + ' µs:</p><div class="actions">' +
+        near.map(function (n) { return '<button class="btn ghost" data-use="' + n.delay + '">Usar ' + fmt(n.delay) + ' µs (A → ' + n.last + ', ' + (n.delay > res.delay ? '+' : '') + fmt(n.delay - res.delay) + ')</button>'; }).join('') + '</div>';
+    }
+    if (res.pwSuggestions.length) {
+      h += '<p class="nc-sub">O bien cambie el ancho de pulso de A:</p><ul>' + res.pwSuggestions.map(function (p) {
+        return '<li>con ' + p.last + ' como área final, ' + (p.min === p.max ? 'A = ' + fmt(p.min) + ' µs' : 'A entre ' + fmt(p.min) + ' y ' + fmt(p.max) + ' µs') + '</li>';
+      }).join('') + '</ul>';
+    } else if (!res.offGrid) {
+      h += '<p class="nc-sub">Ningún ancho de A permite este retardo: está fuera de todos los rangos del equipo.</p>';
+    }
+    $('notConfig').innerHTML = h;
+  }
+  $('notConfig').addEventListener('click', function (ev) {
+    var v = ev.target.closest('[data-use]'); if (!v) return;
+    $('delay').value = v.getAttribute('data-use'); update();
+  });
 
   // ---------- Tarjetas de área (se crean una vez) ----------
   var contacts = load(PREFS_KEY, {}).contacts || { A: '', B: '', C: '', D: '' };
@@ -121,12 +174,21 @@
     var input = readInput();
     var d = input.delay;
     $('delayMs').textContent = Number.isFinite(d) ? '= ' + fmt(d / 1000, 2) + ' ms' : '';
-    if (Number.isFinite(input.pwFirst)) renderRanges(input.pwFirst, Number.isFinite(input.hop) ? input.hop : 3010);
     var res = C.compute(input);
     current = { input: input, res: res };
     savePrefs();
+    renderRanges(input.pwFirst, Number.isFinite(input.hop) && input.hop > 0 ? input.hop : SPEC.HOP_MEASURED, d, res.ok && res.configurable);
 
     $('errors').innerHTML = msgHTML(res.errors, 'err');
+    var notConfig = res.ok && !res.configurable;
+    $('notConfig').hidden = !notConfig;
+    $('programming').hidden = notConfig;
+    if (notConfig) {
+      renderNotConfig(res);
+      $('summary').innerHTML = '<span class="bad-strong">No configurable</span>';
+      $('saveBtn').disabled = true;
+      return;
+    }
     if (!res.ok) {
       $('summary').textContent = '';
       $('msgs').innerHTML = ''; $('timeline').innerHTML = '';
@@ -148,9 +210,7 @@
     });
 
     var lastName = res.zeroDelay ? 'A' : SPEC.AREAS[res.hops];
-    var exact = res.error === 0;
-    $('summary').innerHTML = 'Retardo A → ' + lastName + ': <b>' + fmt(res.achieved) + ' µs</b> ' +
-      (exact ? '<span class="ok">exacto</span>' : '<span class="bad">' + (res.error > 0 ? '+' : '') + fmt(res.error) + ' µs</span>');
+    $('summary').innerHTML = (res.zeroDelay ? 'Retardo 0 µs (misma área A)' : 'Retardo A → ' + lastName + ': <b>' + fmt(res.achieved) + ' µs</b>') + ' <span class="ok">configurable</span>';
 
     var info = [];
     if (!res.zeroDelay) {

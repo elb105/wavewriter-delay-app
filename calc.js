@@ -100,6 +100,28 @@
     return lo <= hi ? [lo, hi] : null;
   }
 
+  /** Rangos posibles con cualquier ancho de A (20–1000 µs). */
+  function globalRanges(hop) {
+    return [1, 2, 3].map(function (h) {
+      return { hops: h, min: range(SPEC.PW_MIN, h, hop).min, max: range(SPEC.PW_MAX, h, hop).max };
+    });
+  }
+
+  /** Retardos configurables más cercanos (por debajo y por encima) con el ancho de A dado. */
+  function nearest(delay, pwFirst, hop) {
+    var below = null, above = null;
+    [1, 2, 3].forEach(function (h) {
+      var r = range(pwFirst, h, hop);
+      // valores posibles: r.min, r.min+10, ..., r.max
+      var lo = delay <= r.min ? null : Math.min(r.max, r.min + Math.floor((delay - r.min) / SPEC.PW_STEP) * SPEC.PW_STEP);
+      var hi = delay >= r.max ? null : Math.max(r.min, r.min + Math.ceil((delay - r.min) / SPEC.PW_STEP) * SPEC.PW_STEP);
+      if (delay === r.min || delay === r.max) { lo = hi = delay; }
+      if (lo != null && lo < delay && (below == null || lo > below.delay)) below = { delay: lo, last: SPEC.AREAS[h] };
+      if (hi != null && hi > delay && (above == null || hi < above.delay)) above = { delay: hi, last: SPEC.AREAS[h] };
+    });
+    return { below: below, above: above };
+  }
+
   /**
    * input: { pwFirst, pwLast, delay, ampFirst, ampLast, freq, hop, manualB }
    */
@@ -117,7 +139,7 @@
 
     if (input.delay === 0) {
       return {
-        ok: true, zeroDelay: true, errors: [], warnings: [],
+        ok: true, configurable: true, zeroDelay: true, errors: [], warnings: [],
         notes: ['Retardo 0 (Hebb−): no se consigue con dos áreas distintas. Use una sola área (A) con dos contactos y reparta el porcentaje de corriente entre ellos; ambos estimulan a la vez.'],
         areas: SPEC.AREAS.map(function (name, i) {
           return i === 0
@@ -146,23 +168,23 @@
     }
 
     if (best.error !== 0) {
-      var exactRequested = Math.abs(best.error) <= SPEC.PW_STEP / 2 && input.delay % 10 !== 0;
-      if (exactRequested) {
-        notes.push('El retardo se ajusta en pasos de 10 µs (resolución del ancho de pulso). Se usa ' + best.achieved + ' µs.');
-      } else {
-        warnings.push('El retardo deseado no se puede conseguir exactamente con A = ' + input.pwFirst +
-          ' µs. Se muestra la configuración más cercana (' + best.achieved + ' µs, diferencia ' +
-          (best.error > 0 ? '+' : '') + best.error + ' µs).');
-        var sugg = [];
+      // No configurable: no se devuelve programación, solo los valores posibles más cercanos.
+      var near = nearest(input.delay, input.pwFirst, hop);
+      var pwSugg = [];
+      if (input.delay % SPEC.PW_STEP === 0) {
         [1, 2, 3].forEach(function (h) {
           var s = suggestPWFirst(input.delay, h, hop);
-          if (s) sugg.push('con ' + SPEC.AREAS[h] + ' como área final, ancho de A entre ' + s[0] + ' y ' + s[1] + ' µs');
+          if (s) pwSugg.push({ last: SPEC.AREAS[h], min: s[0], max: s[1] });
         });
-        if (sugg.length) notes.push('Para conseguirlo exactamente habría que cambiar el ancho del área inicial: ' + sugg.join('; ') + '.');
-        else notes.push('Ningún ancho de A permite este retardo. Rango posible del equipo: ' +
-          (SPEC.PW_MIN + hop) + '–' + (SPEC.PW_MAX + 3 * hop + 2 * SPEC.PW_MAX) + ' µs, con huecos entre ' +
-          'A→B, A→C y A→D.');
       }
+      return {
+        ok: true, configurable: false, errors: [], warnings: [], notes: [],
+        delay: input.delay, pwFirst: input.pwFirst, hop: hop,
+        offGrid: input.delay % SPEC.PW_STEP !== 0,
+        below: near.below, above: near.above, pwSuggestions: pwSugg,
+        ranges: [1, 2, 3].map(function (h) { return range(input.pwFirst, h, hop); }),
+        global: globalRanges(hop)
+      };
     }
     if (best.splitAdjusted) {
       warnings.push('El ancho de B indicado no es compatible con la suma necesaria (' + best.sumIntermediate +
@@ -191,14 +213,15 @@
     }
 
     return {
-      ok: true, errors: [], warnings: warnings, notes: notes, areas: areas,
+      ok: true, configurable: true, errors: [], warnings: warnings, notes: notes, areas: areas,
       achieved: best.achieved, error: best.error, hops: best.hops, cycle: cycle, period: period,
       sumIntermediate: best.sumIntermediate, hop: hop,
       alternatives: cands.filter(function (c) { return c !== best; })
     };
   }
 
-  var api = { SPEC: SPEC, compute: compute, range: range, split: split, suggestPWFirst: suggestPWFirst };
+  var api = { SPEC: SPEC, compute: compute, range: range, split: split, suggestPWFirst: suggestPWFirst,
+    globalRanges: globalRanges, nearest: nearest };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.WWCalc = api;
 })(this);

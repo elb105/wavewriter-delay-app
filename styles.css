@@ -116,4 +116,22 @@ td button { margin-right: 4px; }
 .formula { font-family: ui-monospace, "Cascadia Code", Menlo, monospace; background: var(--accent-soft); padding: 8px 10px; border-radius: 8px; font-size: 0.85rem; }
 .ranges { margin: 8px 0; max-width: 520px; }
 .ranges td, .ranges th { white-space: normal; }
+.btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.lead { margin: 0 0 10px; font-size: 0.85rem; }
+.rangebar svg { width: 100%; height: auto; display: block; }
+.legend { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; color: var(--muted); font-size: 0.78rem; margin: 4px 0 0; }
+.sw { display: inline-block; width: 14px; height: 10px; border-radius: 2px; vertical-align: middle; }
+.sw.solid { background: var(--accent); }
+.sw.soft { background: var(--accent-soft); border: 1px solid var(--accent); opacity: 0.8; }
+.sw.mark { width: 4px; height: 14px; background: var(--err); }
+.sw.mark.ok { background: var(--on); }
+.ranges tr.hit td { background: var(--accent-soft); }
+.summary .bad-strong { color: var(--err); font-weight: 700; }
+.notconfig { border: 2px solid var(--err); background: var(--err-soft); border-radius: 10px; padding: 14px 16px; }
+.nc-head { display: flex; gap: 12px; align-items: flex-start; }
+.nc-head b { font-size: 1.05rem; color: var(--err); }
+.nc-head p { margin: 4px 0 0; }
+.nc-icon { flex: none; width: 30px; height: 30px; border-radius: 50%; background: var(--err); color: var(--surface); display: grid; place-items: center; font-weight: 700; }
+.nc-sub { margin: 12px 0 0; font-weight: 600; font-size: 0.9rem; }
+.notconfig ul { margin: 6px 0 0; padding-left: 20px; }
 .foot { color: var(--muted); font-size: 0.8rem; padding-top: 4px; padding-bottom: 24px; }
