@@ -1,10 +1,17 @@
 # Retardos WaveWriter Alpha
 
+**Español** · [English](README_EN.md)
+
 ## 👉 [Abrir la aplicación: https://elb105.github.io/wavewriter-delay-app/](https://elb105.github.io/wavewriter-delay-app/)
+
+<img src="icons/qr-app.png" alt="Código QR que abre https://elb105.github.io/wavewriter-delay-app/" width="220">
+
+Escanee el código QR con la cámara del móvil para abrir la aplicación.
 
 Aplicación web instalable (PWA) que indica cómo programar las áreas A–D del
 WaveWriter Alpha para conseguir un retardo entre el primer y el último estímulo.
-Funciona en Windows, macOS, iOS y Android, y sin conexión una vez instalada.
+Funciona en Windows, macOS, iOS y Android, y sin conexión una vez instalada. La
+interfaz está en español y en inglés (botones ES / EN arriba a la derecha).
 
 ## Qué hace
 
@@ -29,11 +36,21 @@ Medido con el Power 1401 / Spike2 a 20 Hz (informe REWIRE del 16-11-2026):
     inicio del área siguiente = inicio de la anterior + ancho de la anterior + 3010 µs
 
 El fabricante indica 3000 µs; el valor se puede cambiar en «Ajustes avanzados».
-Con A = 250 µs, los retardos posibles son 3260 µs (A→B), 6290–7270 µs (A→C) y
-9320–11 280 µs (A→D), en pasos de 10 µs. La app muestra estos rangos en el
-apartado «Retardos configurables». Si el retardo pedido no es configurable, no
-muestra ninguna programación: lo indica en rojo, propone los retardos
-configurables más cercanos y el ancho de A que lo haría posible.
+
+### Retardos configurables
+
+El retardo no puede tomar cualquier valor. En pasos de 10 µs:
+
+| Área final | Con A = 250 µs | Cambiando el ancho de A (20–1000 µs) |
+| --- | --- | --- |
+| A → B | 3260 µs | 3030 – 4010 µs |
+| A → C | 6290 – 7270 µs | 6060 – 8020 µs |
+| A → D | 9320 – 11 280 µs | 9090 – 12 030 µs |
+
+La app muestra estos rangos en el apartado «Retardos configurables». Si el
+retardo pedido no es configurable, no muestra ninguna programación: lo indica en
+rojo, propone los retardos configurables más cercanos y el ancho de A que lo
+haría posible.
 
 La regla se cumple en todos los tests a 20 Hz con error < 1 µs. A 150 Hz no se
 cumplió (Test 5), porque el ciclo calculado no cabía en el periodo: la app lo
@@ -74,11 +91,14 @@ y abriendo http://localhost:8765.
 
 El modelo de retardo sale del análisis de las grabaciones con el Power 1401,
 en el repositorio [elb105/wavewriter-delay-analysis](https://github.com/elb105/wavewriter-delay-analysis)
-(privado). Ambos forman parte del proyecto REWIRE / CONECTOMA.
+(privado). Ambos forman parte del proyecto REWIRE / CONECTOMA del Laboratorio B105.
 
 ## Ficheros
 
 * `calc.js`: modelo de cálculo (sin dependencias).
+* `i18n.js`: textos en español e inglés.
 * `app.js`, `index.html`, `styles.css`: interfaz.
 * `manifest.webmanifest`, `sw.js`, `icons/`: instalación y uso sin conexión.
-  Al publicar una versión nueva, cambie `CACHE` en `sw.js` (p. ej. `ww-delay-v2`).
+  Al publicar una versión nueva, cambie `CACHE` en `sw.js` (p. ej. `ww-delay-v6`).
+* `tools/make_qr.py`: genera `icons/qr-app.png` y `icons/qr-app.svg`
+  (`py -3.11 tools/make_qr.py`; solo necesita Pillow).

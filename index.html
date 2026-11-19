@@ -18,74 +18,80 @@
 <body>
 <header class="top">
   <div class="wrap top-in">
-    <img class="logo" src="icons/logo-b105.png" width="250" height="256" alt="Laboratorio B105">
+    <img class="logo" src="icons/logo-b105.png" width="250" height="256" alt="Laboratorio B105" data-i18n-alt="logo.alt">
     <div class="title">
-      <h1>Retardos WaveWriter Alpha</h1>
-      <p class="sub">Configuración de áreas A–D para un retardo entre el primer y el último estímulo</p>
+      <h1 data-i18n="h1">Retardos WaveWriter Alpha</h1>
+      <p class="sub" data-i18n="sub">Configuración de áreas A–D para un retardo entre el primer y el último estímulo</p>
     </div>
-    <button id="installBtn" class="btn ghost" hidden>Instalar</button>
+    <div class="top-actions">
+      <div class="lang" role="group" aria-label="Idioma / Language">
+        <button type="button" data-lang="es" lang="es" title="Español">ES</button>
+        <button type="button" data-lang="en" lang="en" title="English">EN</button>
+      </div>
+      <button id="installBtn" class="btn ghost" hidden data-i18n="install">Instalar</button>
+    </div>
   </div>
 </header>
 
 <main class="wrap">
   <section class="card" aria-labelledby="h-in">
-    <h2 id="h-in">Datos de partida</h2>
+    <h2 id="h-in" data-i18n="in.title">Datos de partida</h2>
     <div class="grid">
       <fieldset>
-        <legend>Área inicial (A)</legend>
-        <label>Ancho de pulso <span class="u">µs</span>
+        <legend data-i18n="in.first">Área inicial (A)</legend>
+        <label><span data-i18n="in.pw">Ancho de pulso</span> <span class="u">µs</span>
           <input id="pwFirst" type="number" inputmode="numeric" min="20" max="1000" step="10" value="250"></label>
-        <label>Amplitud <span class="u">mA</span>
+        <label><span data-i18n="in.amp">Amplitud</span> <span class="u">mA</span>
           <input id="ampFirst" type="number" inputmode="decimal" min="0.1" max="25.5" step="0.1" value="4"></label>
       </fieldset>
       <fieldset>
-        <legend>Área final</legend>
-        <label>Ancho de pulso <span class="u">µs</span>
+        <legend data-i18n="in.last">Área final</legend>
+        <label><span data-i18n="in.pw">Ancho de pulso</span> <span class="u">µs</span>
           <input id="pwLast" type="number" inputmode="numeric" min="20" max="1000" step="10" value="250"></label>
-        <label>Amplitud <span class="u">mA</span>
+        <label><span data-i18n="in.amp">Amplitud</span> <span class="u">mA</span>
           <input id="ampLast" type="number" inputmode="decimal" min="0.1" max="25.5" step="0.1" value="4"></label>
       </fieldset>
       <fieldset>
-        <legend>Objetivo</legend>
-        <label>Retardo deseado <span class="u">µs</span>
+        <legend data-i18n="in.goal">Objetivo</legend>
+        <label><span data-i18n="in.delay">Retardo deseado</span> <span class="u">µs</span>
           <input id="delay" type="number" inputmode="numeric" min="0" step="10" value="9320"></label>
         <p class="hint" id="delayMs"></p>
       </fieldset>
       <fieldset>
-        <legend>Frecuencia</legend>
-        <label>Frecuencia de estimulación <span class="u">Hz</span>
+        <legend data-i18n="in.freqLegend">Frecuencia</legend>
+        <label><span data-i18n="in.freq">Frecuencia de estimulación</span> <span class="u">Hz</span>
           <select id="freq"></select></label>
-        <p class="hint">Solo se registra y genera avisos; no cambia el cálculo.</p>
+        <p class="hint" data-i18n="in.freqHint">Solo se registra y genera avisos; no cambia el cálculo.</p>
       </fieldset>
     </div>
 
     <details class="adv">
-      <summary>Ajustes avanzados</summary>
+      <summary data-i18n="adv.title">Ajustes avanzados</summary>
       <div class="grid">
-        <label>Reparto entre B y C (cuando hay dos intermedias)
+        <label><span data-i18n="adv.split">Reparto entre B y C (cuando hay dos intermedias)</span>
           <select id="splitMode">
-            <option value="auto">A partes iguales</option>
-            <option value="manual">Fijar el ancho de B</option>
+            <option value="auto" data-i18n="adv.splitAuto">A partes iguales</option>
+            <option value="manual" data-i18n="adv.splitManual">Fijar el ancho de B</option>
           </select></label>
-        <label id="manualBWrap" hidden>Ancho de B <span class="u">µs</span>
+        <label id="manualBWrap" hidden><span data-i18n="adv.manualB">Ancho de B</span> <span class="u">µs</span>
           <input id="manualB" type="number" inputmode="numeric" min="20" max="1000" step="10" value="500"></label>
-        <label>Tiempo fijo por salto <span class="u">µs</span>
+        <label><span data-i18n="adv.hop">Tiempo fijo por salto</span> <span class="u">µs</span>
           <input id="hop" type="number" inputmode="numeric" min="2900" max="3100" step="1" value="3010"></label>
       </div>
-      <p class="hint">3010 µs es lo medido con el Power 1401 (Spike2, 20 Hz). El fabricante indica 3000 µs.</p>
+      <p class="hint" data-i18n="adv.hint">3010 µs es lo medido con el Power 1401 (Spike2, 20 Hz). El fabricante indica 3000 µs.</p>
     </details>
   </section>
 
   <section class="card" aria-labelledby="h-ranges">
-    <h2 id="h-ranges">Retardos configurables</h2>
-    <p class="hint lead">El retardo no puede tomar cualquier valor: solo los de estos rangos, en pasos de 10 µs. Entre un rango y otro hay huecos que el equipo no puede producir.</p>
+    <h2 id="h-ranges" data-i18n="rg.title">Retardos configurables</h2>
+    <p class="hint lead" data-i18n="rg.lead">El retardo no puede tomar cualquier valor: solo los de estos rangos, en pasos de 10 µs. Entre un rango y otro hay huecos que el equipo no puede producir.</p>
     <div id="rangeBar" class="rangebar"></div>
     <div class="tablewrap"><table class="ranges" id="ranges"></table></div>
   </section>
 
   <section class="card" aria-labelledby="h-out">
     <div class="row-between">
-      <h2 id="h-out">Programación de las áreas</h2>
+      <h2 id="h-out" data-i18n="out.title">Programación de las áreas</h2>
       <div id="summary" class="summary"></div>
     </div>
     <div id="errors" class="msgs"></div>
@@ -94,44 +100,45 @@
       <div id="areas" class="areas"></div>
       <figure class="timeline">
         <div id="timeline"></div>
-        <figcaption>Un ciclo de estimulación. Cada área empieza cuando termina el pulso de la anterior más el tiempo fijo por salto.</figcaption>
+        <figcaption data-i18n="out.caption">Un ciclo de estimulación. Cada área empieza cuando termina el pulso de la anterior más el tiempo fijo por salto.</figcaption>
       </figure>
       <div id="msgs" class="msgs"></div>
     </div>
   </section>
 
   <section class="card" aria-labelledby="h-log">
-    <h2 id="h-log">Registro de pruebas</h2>
+    <h2 id="h-log" data-i18n="log.title">Registro de pruebas</h2>
     <div class="grid">
-      <label>Identificador de la prueba
-        <input id="testId" type="text" placeholder="p. ej. Rata 03 · sesión 2"></label>
-      <label>Notas
-        <input id="testNotes" type="text" placeholder="Observaciones"></label>
+      <label><span data-i18n="log.id">Identificador de la prueba</span>
+        <input id="testId" type="text" placeholder="p. ej. Rata 03 · sesión 2" data-i18n-ph="log.idPh"></label>
+      <label><span data-i18n="log.notes">Notas</span>
+        <input id="testNotes" type="text" placeholder="Observaciones" data-i18n-ph="log.notesPh"></label>
     </div>
     <div class="actions">
-      <button id="saveBtn" class="btn">Guardar prueba</button>
-      <button id="csvBtn" class="btn ghost">Exportar CSV</button>
-      <button id="jsonBtn" class="btn ghost">Copia de seguridad</button>
-      <label class="btn ghost file">Restaurar copia<input id="importFile" type="file" accept="application/json,.json"></label>
+      <button id="saveBtn" class="btn" data-i18n="log.save">Guardar prueba</button>
+      <button id="csvBtn" class="btn ghost" data-i18n="log.csv">Exportar CSV</button>
+      <button id="jsonBtn" class="btn ghost" data-i18n="log.backup">Copia de seguridad</button>
+      <label class="btn ghost file"><span data-i18n="log.restore">Restaurar copia</span><input id="importFile" type="file" accept="application/json,.json"></label>
     </div>
     <p class="hint" id="logInfo"></p>
     <div class="tablewrap"><table id="logTable">
-      <thead><tr><th>Fecha</th><th>Prueba</th><th>Hz</th><th>Retardo</th><th>A</th><th>B</th><th>C</th><th>D</th><th>Notas</th><th></th></tr></thead>
+      <thead><tr><th data-i18n="log.thDate">Fecha</th><th data-i18n="log.thTest">Prueba</th><th>Hz</th><th data-i18n="log.thDelay">Retardo</th><th>A</th><th>B</th><th>C</th><th>D</th><th data-i18n="log.thNotes">Notas</th><th></th></tr></thead>
       <tbody></tbody>
     </table></div>
   </section>
 
   <section class="card about" aria-labelledby="h-about">
-    <h2 id="h-about">Cómo se calcula</h2>
-    <p>El estimulador emite las áreas una detrás de otra en orden A → B → C → D. Medido a 20 Hz:</p>
-    <p class="formula">inicio del área siguiente = inicio de la anterior + ancho de la anterior + 3010 µs</p>
-    <p>El retardo entre la primera y la última área es la suma de los anchos de todas las áreas que estimulan antes que la última, más 3010 µs por cada salto. Las áreas intermedias se encienden a 0,1 mA (el mínimo del equipo) solo para añadir retardo; su ancho es lo que se ajusta. Las áreas posteriores a la final quedan apagadas.</p>
-    <p>Límites del equipo: ancho 20–1000 µs (pasos de 10 µs), amplitud 0,1–25,5 mA (pasos de 0,1 mA), frecuencia 2–1200 Hz, 32 contactos repartidos en los puertos A (1–8), B (9–16), C (17–24) y D (25–32). Los puertos del generador no son lo mismo que las áreas de estimulación: cualquier contacto puede asignarse a cualquier área.</p>
-    <p>Fuentes: informe de retardos REWIRE (Spike2, 16-11-2026), <em>Characterization of Boston Scientific Alpha Writer 2</em>, datasheet WaveWriter Alpha (92469342-02) e informe de Boston Scientific <em>SCS Signal Delay Test</em>.</p>
+    <h2 id="h-about" data-i18n="about.title">Cómo se calcula</h2>
+    <p data-i18n="about.p1">El estimulador emite las áreas una detrás de otra en orden A → B → C → D. Medido a 20 Hz:</p>
+    <p class="formula" data-i18n="about.formula">inicio del área siguiente = inicio de la anterior + ancho de la anterior + 3010 µs</p>
+    <p data-i18n="about.p2">El retardo entre la primera y la última área es la suma de los anchos de todas las áreas que estimulan antes que la última, más 3010 µs por cada salto.</p>
+    <p data-i18n="about.p3">Límites del equipo: ancho 20–1000 µs, amplitud 0,1–25,5 mA, frecuencia 2–1200 Hz, 32 contactos.</p>
+    <p data-i18n-html="about.p4">Fuentes: informe de retardos REWIRE.</p>
   </section>
 </main>
-<footer class="wrap foot"><img class="foot-logo" src="icons/logo-b105.png" width="250" height="256" alt=""><span>Laboratorio B105 · REWIRE / CONECTOMA · herramienta de apoyo para pruebas de laboratorio, no sustituye al programador clínico.</span></footer>
+<footer class="wrap foot"><img class="foot-logo" src="icons/logo-b105.png" width="250" height="256" alt=""><span data-i18n="foot">Laboratorio B105 · REWIRE / CONECTOMA · herramienta de apoyo para pruebas de laboratorio, no sustituye al programador clínico.</span></footer>
 
+<script src="i18n.js"></script>
 <script src="calc.js"></script>
 <script src="app.js"></script>
 </body>
