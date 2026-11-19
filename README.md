@@ -45,8 +45,10 @@ registro a otro dispositivo («Restaurar copia» la fusiona sin duplicar).
 
 ## Instalación
 
-La app tiene que estar publicada en una dirección HTTPS (por ejemplo GitHub
-Pages). Después, desde esa dirección:
+**Dirección de la app: https://elb105.github.io/wavewriter-delay-app/**
+
+No hace falta instalar nada más (ni Python ni librerías): basta un navegador.
+Desde esa dirección:
 
 | Sistema | Navegador | Cómo instalar |
 | --- | --- | --- |
