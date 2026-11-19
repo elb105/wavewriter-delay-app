@@ -1,5 +1,7 @@
 # Retardos WaveWriter Alpha
 
+## 👉 [Abrir la aplicación: https://elb105.github.io/wavewriter-delay-app/](https://elb105.github.io/wavewriter-delay-app/)
+
 Aplicación web instalable (PWA) que indica cómo programar las áreas A–D del
 WaveWriter Alpha para conseguir un retardo entre el primer y el último estímulo.
 Funciona en Windows, macOS, iOS y Android, y sin conexión una vez instalada.
