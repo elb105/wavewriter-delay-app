@@ -1,28 +1,31 @@
+/* Paleta del laboratorio B105 (b105.upm.es): fondo #262626, superficie #2f2f2f,
+   texto #e6e6e6, gris #a6a6a6, líneas #4a4a4a, verde #79ca27 / #72d572, botón #3fa34d,
+   verde oscuro #198754, rojo #be574b. El tema claro usa los mismos tonos oscurecidos. */
 :root {
-  --bg: #f4f6f7; --surface: #ffffff; --text: #17242a; --muted: #5b6b72; --line: #dbe2e5;
-  --accent: #0f5c6e; --accent-ink: #ffffff; --accent-soft: #e3f0f2;
-  --on: #1d7a4d; --on-soft: #e4f4eb; --off: #8a969b; --off-soft: #eef1f2;
-  --warn: #8a5a00; --warn-soft: #fdf3dc; --err: #a3261b; --err-soft: #fbe6e3;
-  --a: #0f5c6e; --b: #c07a12; --c: #7a4fb0; --d: #b8325a;
+  --bg: #f2f2f2; --surface: #ffffff; --text: #262626; --muted: #5c5c5c; --line: #d6d6d6;
+  --accent: #2f7d1a; --accent-ink: #ffffff; --accent-soft: #ebf5e1; --btn: #2a7d36;
+  --on: #198754; --on-soft: #e3f3ea; --off: #808080; --off-soft: #efefef;
+  --warn: #8a5a00; --warn-soft: #fdf3dc; --err: #a8473c; --err-soft: #f8e7e4;
+  --a: #367d1b; --b: #9c620a; --c: #2f6fa8; --d: #be574b;
   --radius: 12px;
   color-scheme: light;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #0f1518; --surface: #172025; --text: #e6edf0; --muted: #9aabb2; --line: #2a373d;
-    --accent: #4fb3c8; --accent-ink: #062027; --accent-soft: #1c3138;
-    --on: #5cc78f; --on-soft: #17301f; --off: #7d8a90; --off-soft: #1d262a;
-    --warn: #f0c060; --warn-soft: #33290f; --err: #ff8a7d; --err-soft: #3a1a17;
-    --a: #4fb3c8; --b: #e7a542; --c: #b48ae6; --d: #ec6f95;
+    --bg: #262626; --surface: #2f2f2f; --text: #e6e6e6; --muted: #a6a6a6; --line: #4a4a4a;
+    --accent: #79ca27; --accent-ink: #111111; --accent-soft: #33402a; --btn: #79ca27;
+    --on: #72d572; --on-soft: #2c3f2c; --off: #808080; --off-soft: #2a2a2a;
+    --warn: #f0c060; --warn-soft: #3d3420; --err: #e0857a; --err-soft: #43302d;
+    --a: #79ca27; --b: #e8a838; --c: #6cb2ec; --d: #e07a6e;
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
-  --bg: #0f1518; --surface: #172025; --text: #e6edf0; --muted: #9aabb2; --line: #2a373d;
-  --accent: #4fb3c8; --accent-ink: #062027; --accent-soft: #1c3138;
-  --on: #5cc78f; --on-soft: #17301f; --off: #7d8a90; --off-soft: #1d262a;
-  --warn: #f0c060; --warn-soft: #33290f; --err: #ff8a7d; --err-soft: #3a1a17;
-  --a: #4fb3c8; --b: #e7a542; --c: #b48ae6; --d: #ec6f95;
+  --bg: #262626; --surface: #2f2f2f; --text: #e6e6e6; --muted: #a6a6a6; --line: #4a4a4a;
+  --accent: #79ca27; --accent-ink: #111111; --accent-soft: #33402a; --btn: #79ca27;
+  --on: #72d572; --on-soft: #2c3f2c; --off: #808080; --off-soft: #2a2a2a;
+  --warn: #f0c060; --warn-soft: #3d3420; --err: #e0857a; --err-soft: #43302d;
+  --a: #79ca27; --b: #e8a838; --c: #6cb2ec; --d: #e07a6e;
   color-scheme: dark;
 }
 * { box-sizing: border-box; }
@@ -95,7 +98,7 @@ input:invalid { border-color: var(--err); }
 .actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
 .btn {
   font: inherit; font-weight: 600; font-size: 0.9rem; border-radius: 8px; padding: 9px 14px; min-height: 42px; cursor: pointer;
-  background: var(--accent); color: var(--accent-ink); border: 1px solid var(--accent);
+  background: var(--btn); color: var(--accent-ink); border: 1px solid var(--btn);
 }
 .btn.ghost { background: transparent; color: var(--accent); }
 .btn.small { min-height: 32px; padding: 4px 10px; font-size: 0.8rem; }
