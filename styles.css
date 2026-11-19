@@ -34,7 +34,12 @@ body {
 }
 .wrap { max-width: 1040px; margin: 0 auto; padding: 0 16px; }
 .top { background: var(--surface); border-bottom: 1px solid var(--line); padding-top: env(safe-area-inset-top); }
-.top-in { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-top: 14px; padding-bottom: 14px; }
+.top-in { display: flex; align-items: center; gap: 12px; padding-top: 14px; padding-bottom: 14px; }
+.top-in .title { flex: 1; min-width: 0; }
+.logo { width: 60px; height: auto; flex: none; }
+@media (max-width: 480px) { .logo { width: 44px; } }
+.foot { display: flex; align-items: center; gap: 10px; }
+.foot-logo { width: 28px; height: auto; flex: none; }
 h1 { font-size: 1.25rem; margin: 0; letter-spacing: -0.01em; }
 h2 { font-size: 1.05rem; margin: 0 0 12px; }
 .sub { margin: 2px 0 0; color: var(--muted); font-size: 0.9rem; }
