@@ -12,7 +12,10 @@ Installable web app (PWA) that shows how to program areas A–D of the Boston
 Scientific WaveWriter Alpha to obtain a given delay between the first and the
 last stimulus. It works on Windows, macOS, iOS and Android, and offline once
 installed. The interface is available in Spanish and English (ES / EN buttons at
-the top right).
+the top right). The first time it opens it shows a skippable tutorial; it can be
+viewed again with the **?** button.
+
+Edge cases worth testing on the stimulator (in Spanish): [CASOS_LIMITE.md](CASOS_LIMITE.md).
 
 ## What it does
 
@@ -99,6 +102,7 @@ repository [elb105/wavewriter-delay-analysis](https://github.com/elb105/wavewrit
 * `calc.js`: calculation model (no dependencies).
 * `i18n.js`: Spanish and English texts.
 * `app.js`, `index.html`, `styles.css`: user interface.
+* `tour.js`: guided tutorial shown on the first visit.
 * `manifest.webmanifest`, `sw.js`, `icons/`: installation and offline use.
   When publishing a new version, change `CACHE` in `sw.js` (e.g. `ww-delay-v6`).
 * `tools/make_qr.py`: generates `icons/qr-app.png` and `icons/qr-app.svg`

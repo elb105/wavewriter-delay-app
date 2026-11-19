@@ -115,7 +115,34 @@
       'about.p2': 'El retardo entre la primera y la última área es la suma de los anchos de todas las áreas que estimulan antes que la última, más 3010 µs por cada salto. Las áreas intermedias se encienden a 0,1 mA (el mínimo del equipo) solo para añadir retardo; su ancho es lo que se ajusta. Las áreas posteriores a la final quedan apagadas.',
       'about.p3': 'Límites del equipo: ancho 20–1000 µs (pasos de 10 µs), amplitud 0,1–25,5 mA (pasos de 0,1 mA), frecuencia 2–1200 Hz, 32 contactos repartidos en los puertos A (1–8), B (9–16), C (17–24) y D (25–32). Los puertos del generador no son lo mismo que las áreas de estimulación: cualquier contacto puede asignarse a cualquier área.',
       'about.p4': 'Fuentes: informe de retardos REWIRE (Spike2, 16-11-2026), <em>Characterization of Boston Scientific Alpha Writer 2</em>, datasheet WaveWriter Alpha (92469342-02) e informe de Boston Scientific <em>SCS Signal Delay Test</em>.',
-      'foot': 'Laboratorio B105 · REWIRE / CONECTOMA · herramienta de apoyo para pruebas de laboratorio, no sustituye al programador clínico.'
+      'foot': 'Laboratorio B105 · REWIRE / CONECTOMA · herramienta de apoyo para pruebas de laboratorio, no sustituye al programador clínico.',
+      'tour.help': 'Ver el tutorial',
+      'tour.count': 'Paso {i} de {n}',
+      'tour.skip': 'Saltar tutorial', 'tour.prev': 'Anterior', 'tour.next': 'Siguiente', 'tour.start': 'Empezar', 'tour.finish': 'Terminar',
+      'tour.welcome.title': 'Le damos la bienvenida',
+      'tour.welcome.text': 'Esta app indica cómo programar las áreas A–D del WaveWriter Alpha para que entre el primer estímulo (área A) y el último haya el <b>retardo</b> que necesita. Las áreas intermedias se encienden a 0,1 mA solo para añadir retardo.<br><br>El tutorial dura menos de un minuto. Puede saltarlo y volver a verlo cuando quiera con el botón <b>?</b> de arriba.',
+      'tour.first.title': '1. Área inicial (A)',
+      'tour.first.text': 'Escriba el <b>ancho de pulso</b> (20–1000 µs, en pasos de 10) y la <b>amplitud</b> (0,1–25,5 mA) con los que quiere estimular la primera zona. El ancho de A sí cuenta para el retardo.',
+      'tour.last.title': '2. Área final',
+      'tour.last.text': 'Ancho de pulso y amplitud de la última zona funcional. La app decide si esa área es B, C o D según el retardo. El ancho del área final no cambia el retardo.',
+      'tour.delay.title': '3. Retardo deseado',
+      'tour.delay.text': 'Tiempo en <b>µs</b> entre el inicio del pulso de A y el inicio del pulso del área final. Debajo se muestra en ms. No todos los valores son posibles: lo verá en el apartado de retardos configurables.',
+      'tour.freq.title': '4. Frecuencia',
+      'tour.freq.text': 'Elija la frecuencia de estimulación entre las que ofrece el equipo. <b>No cambia el cálculo</b>: se guarda en el registro y avisa si el ciclo no cabe en el periodo o si en la caracterización hubo problemas a esa frecuencia.',
+      'tour.adv.title': '5. Ajustes avanzados (opcional)',
+      'tour.adv.text': 'Si hay dos áreas intermedias (B y C), por defecto se reparten el ancho a partes iguales; aquí puede fijar el de B. También puede cambiar el tiempo fijo por salto (3010 µs medido; 3000 µs según el fabricante). Normalmente no hace falta tocarlo.',
+      'tour.ranges.title': '6. Retardos configurables',
+      'tour.ranges.text': 'La barra y la tabla muestran qué retardos se pueden programar: en verde intenso con el ancho de A actual y en verde claro cambiando el ancho de A. La marca indica su retardo: <b>verde</b> si es configurable, <b>roja</b> si no.',
+      'tour.areas.title': '7. Programación de las áreas',
+      'tour.areas.text': 'Esto es lo que hay que poner en el programador: qué áreas van <b>encendidas</b> o <b>apagadas</b>, su ancho de pulso y su amplitud. En cada tarjeta puede elegir el <b>contacto</b> (1–32) conectado a esa área para llevar el control de las pruebas. Debajo, el cronograma de un ciclo.',
+      'tour.notconfig.title': '8. Si el retardo no se puede programar',
+      'tour.notconfig.text': 'Si el retardo no es configurable, en lugar de la programación aparece un <b>recuadro rojo</b> que lo explica. Puede pulsar uno de los botones <b>«Usar … µs»</b> para pasar al retardo posible más cercano, o cambiar el ancho de A como se indica.',
+      'tour.log.title': '9. Registro de pruebas',
+      'tour.log.text': 'Escriba un identificador y notas y pulse <b>Guardar prueba</b>. Las pruebas se guardan en este dispositivo; puede <b>exportarlas a CSV</b> o hacer una <b>copia de seguridad</b> para pasarlas a otro equipo. «Cargar» vuelve a poner una prueba guardada.',
+      'tour.lang.title': '10. Idioma y ayuda',
+      'tour.lang.text': 'Con <b>ES / EN</b> cambia el idioma. Con <b>?</b> vuelve a ver este tutorial. En el móvil o el ordenador puede <b>instalar</b> la app para usarla sin conexión.',
+      'tour.done.title': 'Listo',
+      'tour.done.text': 'Ya puede empezar. Recuerde: rellene A, el área final y el retardo; compruebe que la marca está en verde y copie la programación de las áreas en el programador.'
     },
     en: {
       'meta.title': 'WaveWriter Delays',
@@ -225,7 +252,34 @@
       'about.p2': 'The delay between the first and the last area is the sum of the widths of all areas that stimulate before the last one, plus 3010 µs per hop. Intermediate areas are switched on at 0.1 mA (the device minimum) only to add delay; their width is what is adjusted. Areas after the last one stay off.',
       'about.p3': 'Device limits: width 20–1000 µs (10 µs steps), amplitude 0.1–25.5 mA (0.1 mA steps), frequency 2–1200 Hz, 32 contacts spread over ports A (1–8), B (9–16), C (17–24) and D (25–32). The generator ports are not the same as the stimulation areas: any contact can be assigned to any area.',
       'about.p4': 'Sources: REWIRE delay report (Spike2, 16-11-2026), <em>Characterization of Boston Scientific Alpha Writer 2</em>, WaveWriter Alpha datasheet (92469342-02) and Boston Scientific report <em>SCS Signal Delay Test</em>.',
-      'foot': 'B105 Laboratory · REWIRE / CONECTOMA · support tool for laboratory tests; it does not replace the clinician programmer.'
+      'foot': 'B105 Laboratory · REWIRE / CONECTOMA · support tool for laboratory tests; it does not replace the clinician programmer.',
+      'tour.help': 'Show the tutorial',
+      'tour.count': 'Step {i} of {n}',
+      'tour.skip': 'Skip tutorial', 'tour.prev': 'Back', 'tour.next': 'Next', 'tour.start': 'Start', 'tour.finish': 'Finish',
+      'tour.welcome.title': 'Welcome',
+      'tour.welcome.text': 'This app shows how to program areas A–D of the WaveWriter Alpha so that the first stimulus (area A) and the last one are separated by the <b>delay</b> you need. Intermediate areas are switched on at 0.1 mA only to add delay.<br><br>The tutorial takes less than a minute. You can skip it and watch it again at any time with the <b>?</b> button at the top.',
+      'tour.first.title': '1. First area (A)',
+      'tour.first.text': 'Enter the <b>pulse width</b> (20–1000 µs, in 10 µs steps) and the <b>amplitude</b> (0.1–25.5 mA) you want to use on the first target. The width of A does count towards the delay.',
+      'tour.last.title': '2. Last area',
+      'tour.last.text': 'Pulse width and amplitude of the last functional target. The app decides whether that area is B, C or D depending on the delay. The width of the last area does not change the delay.',
+      'tour.delay.title': '3. Desired delay',
+      'tour.delay.text': 'Time in <b>µs</b> between the start of the pulse of A and the start of the pulse of the last area. It is shown in ms underneath. Not every value is possible: you will see which ones are in the configurable delays section.',
+      'tour.freq.title': '4. Frequency',
+      'tour.freq.text': 'Choose the stimulation frequency from the values the device offers. <b>It does not change the calculation</b>: it is saved in the log and triggers a warning if the cycle does not fit in the period or if problems were seen at that frequency during the characterization.',
+      'tour.adv.title': '5. Advanced settings (optional)',
+      'tour.adv.text': 'With two intermediate areas (B and C), the width is split equally by default; here you can set the width of B. You can also change the fixed time per hop (3010 µs measured; 3000 µs according to the manufacturer). Usually there is no need to touch this.',
+      'tour.ranges.title': '6. Configurable delays',
+      'tour.ranges.text': 'The bar and the table show which delays can be programmed: dark green with the current width of A and light green by changing the width of A. The marker shows your delay: <b>green</b> if it is configurable, <b>red</b> if it is not.',
+      'tour.areas.title': '7. Area programming',
+      'tour.areas.text': 'This is what you enter in the programmer: which areas are <b>ON</b> or <b>OFF</b>, their pulse width and their amplitude. On each card you can pick the <b>contact</b> (1–32) connected to that area to keep track of your tests. Below, the timeline of one cycle.',
+      'tour.notconfig.title': '8. If the delay cannot be programmed',
+      'tour.notconfig.text': 'If the delay is not configurable, a <b>red box</b> explaining why appears instead of the programming. You can press one of the <b>“Use … µs”</b> buttons to switch to the closest possible delay, or change the width of A as suggested.',
+      'tour.log.title': '9. Test log',
+      'tour.log.text': 'Type an identifier and notes and press <b>Save test</b>. Tests are stored on this device; you can <b>export them to CSV</b> or make a <b>backup</b> to move them to another device. “Load” puts a saved test back into the form.',
+      'tour.lang.title': '10. Language and help',
+      'tour.lang.text': 'Use <b>ES / EN</b> to change the language and <b>?</b> to see this tutorial again. On a phone or computer you can <b>install</b> the app to use it offline.',
+      'tour.done.title': 'All set',
+      'tour.done.text': 'You can start now. Remember: fill in A, the last area and the delay; check that the marker is green and copy the area programming into the programmer.'
     }
   };
 
@@ -244,6 +298,8 @@
     scope.querySelectorAll('[data-i18n-html]').forEach(function (el) { el.innerHTML = t(el.getAttribute('data-i18n-html')); });
     scope.querySelectorAll('[data-i18n-ph]').forEach(function (el) { el.setAttribute('placeholder', t(el.getAttribute('data-i18n-ph'))); });
     scope.querySelectorAll('[data-i18n-alt]').forEach(function (el) { el.setAttribute('alt', t(el.getAttribute('data-i18n-alt'))); });
+    scope.querySelectorAll('[data-i18n-title]').forEach(function (el) { el.setAttribute('title', t(el.getAttribute('data-i18n-title'))); });
+    scope.querySelectorAll('[data-i18n-aria]').forEach(function (el) { el.setAttribute('aria-label', t(el.getAttribute('data-i18n-aria'))); });
     document.documentElement.lang = lang;
     document.title = t('meta.title');
     var md = document.querySelector('meta[name="description"]'); if (md) md.setAttribute('content', t('meta.desc'));

@@ -1,6 +1,6 @@
 // Service worker: deja la app disponible sin conexión.
-var CACHE = 'ww-delay-v5';
-var FILES = ['./', 'index.html', 'styles.css', 'i18n.js', 'calc.js', 'app.js', 'manifest.webmanifest',
+var CACHE = 'ww-delay-v6';
+var FILES = ['./', 'index.html', 'styles.css', 'i18n.js', 'calc.js', 'app.js', 'tour.js', 'manifest.webmanifest',
   'icons/icon.svg', 'icons/logo-b105.png', 'icons/icon-180.png', 'icons/icon-192.png', 'icons/icon-512.png', 'icons/icon-maskable-512.png'];
 
 self.addEventListener('install', function (e) {

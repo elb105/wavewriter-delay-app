@@ -11,7 +11,11 @@ Escanee el código QR con la cámara del móvil para abrir la aplicación.
 Aplicación web instalable (PWA) que indica cómo programar las áreas A–D del
 WaveWriter Alpha para conseguir un retardo entre el primer y el último estímulo.
 Funciona en Windows, macOS, iOS y Android, y sin conexión una vez instalada. La
-interfaz está en español y en inglés (botones ES / EN arriba a la derecha).
+interfaz está en español y en inglés (botones ES / EN arriba a la derecha). La
+primera vez que se abre muestra un tutorial que se puede saltar; se vuelve a ver
+con el botón **?**.
+
+Casos límite que conviene probar en el estimulador: [CASOS_LIMITE.md](CASOS_LIMITE.md).
 
 ## Qué hace
 
@@ -98,6 +102,7 @@ en el repositorio [elb105/wavewriter-delay-analysis](https://github.com/elb105/w
 * `calc.js`: modelo de cálculo (sin dependencias).
 * `i18n.js`: textos en español e inglés.
 * `app.js`, `index.html`, `styles.css`: interfaz.
+* `tour.js`: tutorial guiado de la primera visita.
 * `manifest.webmanifest`, `sw.js`, `icons/`: instalación y uso sin conexión.
   Al publicar una versión nueva, cambie `CACHE` en `sw.js` (p. ej. `ww-delay-v6`).
 * `tools/make_qr.py`: genera `icons/qr-app.png` y `icons/qr-app.svg`
